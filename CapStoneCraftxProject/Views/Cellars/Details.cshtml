@@ -1,0 +1,47 @@
+﻿@model CapStoneCraftxProject.Models.Cellar
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Members Personal Cellar</h2>
+
+<div>
+    @*<h4>Cellar</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CellarName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CellarName)
+        </dd>
+        @if (ViewBag.IsCurrentUser == true)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Member.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Member.Email)
+            </dd>
+
+        }
+
+
+    </dl>
+</div>
+
+<div class="Cellarbeerlist">
+    @Html.Action("Forcellar", "Beers", new { id = Model.Id})
+
+</div>
+<p>
+    
+    @Html.ActionLink("Back to Beer List", "Index", "Beers")
+</p>
+<p>
+
+    @Html.ActionLink("Back to Cellar List", "Index", "Cellars")
+</p>

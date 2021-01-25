@@ -1,0 +1,74 @@
+﻿@model CapStoneCraftxProject.Models.Trade
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Trade</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsApproved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SendingComments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SendingComments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceivingComments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceivingComments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Beer.Style)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Beer.Style)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Beer1.Style)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Beer1.Style)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cellar.MemberId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cellar.MemberId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cellar1.MemberId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cellar1.MemberId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

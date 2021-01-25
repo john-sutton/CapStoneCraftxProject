@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CapStoneProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Beer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Style" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Brewer" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="BeerName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ABV" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Description" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="Cellar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CellarName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CellarBeer">
+          <Key>
+            <PropertyRef Name="Cellarid" />
+            <PropertyRef Name="BeerId" />
+          </Key>
+          <Property Name="Cellarid" Type="int" Nullable="false" />
+          <Property Name="BeerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Zip" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Trade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SendingMemberId" Type="int" Nullable="false" />
+          <Property Name="ReceivingMemberId" Type="int" Nullable="false" />
+          <Property Name="SendingBeerId" Type="int" Nullable="false" />
+          <Property Name="ReceiverBeerId" Type="int" Nullable="false" />
+          <Property Name="IsApproved" Type="bit" />
+          <Property Name="SendingComments" Type="nvarchar(max)" />
+          <Property Name="ReceivingComments" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__Cellar__MemberId__72C60C4A">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Cellar" Type="Self.Cellar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cellar">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CellarBee__BeerI__778AC167">
+          <End Role="Beer" Type="Self.Beer" Multiplicity="1" />
+          <End Role="CellarBeer" Type="Self.CellarBeer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CellarBeer">
+              <PropertyRef Name="BeerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CellarBee__Cella__76969D2E">
+          <End Role="Cellar" Type="Self.Cellar" Multiplicity="1" />
+          <End Role="CellarBeer" Type="Self.CellarBeer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cellar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CellarBeer">
+              <PropertyRef Name="Cellarid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trade__ReceiverB__7D439ABD">
+          <End Role="Beer" Type="Self.Beer" Multiplicity="1" />
+          <End Role="Trade" Type="Self.Trade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trade">
+              <PropertyRef Name="ReceiverBeerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trade__Receiving__7B5B524B">
+          <End Role="Cellar" Type="Self.Cellar" Multiplicity="1" />
+          <End Role="Trade" Type="Self.Trade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cellar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trade">
+              <PropertyRef Name="ReceivingMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trade__SendingBe__7C4F7684">
+          <End Role="Beer" Type="Self.Beer" Multiplicity="1" />
+          <End Role="Trade" Type="Self.Trade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trade">
+              <PropertyRef Name="SendingBeerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trade__SendingMe__7A672E12">
+          <End Role="Cellar" Type="Self.Cellar" Multiplicity="1" />
+          <End Role="Trade" Type="Self.Trade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cellar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trade">
+              <PropertyRef Name="SendingMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CapStoneProjectModelStoreContainer">
+          <EntitySet Name="Beer" EntityType="Self.Beer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cellar" EntityType="Self.Cellar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CellarBeer" EntityType="Self.CellarBeer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trade" EntityType="Self.Trade" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Cellar__MemberId__72C60C4A" Association="Self.FK__Cellar__MemberId__72C60C4A">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Cellar" EntitySet="Cellar" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CellarBee__BeerI__778AC167" Association="Self.FK__CellarBee__BeerI__778AC167">
+            <End Role="Beer" EntitySet="Beer" />
+            <End Role="CellarBeer" EntitySet="CellarBeer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CellarBee__Cella__76969D2E" Association="Self.FK__CellarBee__Cella__76969D2E">
+            <End Role="Cellar" EntitySet="Cellar" />
+            <End Role="CellarBeer" EntitySet="CellarBeer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trade__ReceiverB__7D439ABD" Association="Self.FK__Trade__ReceiverB__7D439ABD">
+            <End Role="Beer" EntitySet="Beer" />
+            <End Role="Trade" EntitySet="Trade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trade__Receiving__7B5B524B" Association="Self.FK__Trade__Receiving__7B5B524B">
+            <End Role="Cellar" EntitySet="Cellar" />
+            <End Role="Trade" EntitySet="Trade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trade__SendingBe__7C4F7684" Association="Self.FK__Trade__SendingBe__7C4F7684">
+            <End Role="Beer" EntitySet="Beer" />
+            <End Role="Trade" EntitySet="Trade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trade__SendingMe__7A672E12" Association="Self.FK__Trade__SendingMe__7A672E12">
+            <End Role="Cellar" EntitySet="Cellar" />
+            <End Role="Trade" EntitySet="Trade" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CapStoneProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cellar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CellarName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Trades" Relationship="Self.FK__Trade__Receiving__6477ECF3" FromRole="Cellar" ToRole="Trade" />
+          <NavigationProperty Name="Trades1" Relationship="Self.FK__Trade__SendingMe__6383C8BA" FromRole="Cellar" ToRole="Trade" />
+          <NavigationProperty Name="Beers" Relationship="CapStoneProjectModel.CellarBeer" FromRole="Cellar" ToRole="Beer" />
+          <NavigationProperty Name="Member" Relationship="CapStoneProjectModel.FK__Cellar__MemberId__72C60C4A" FromRole="Cellar" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="Trade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SendingMemberId" Type="Int32" Nullable="false" />
+          <Property Name="ReceivingMemberId" Type="Int32" Nullable="false" />
+          <Property Name="SendingBeerId" Type="Int32" Nullable="false" />
+          <Property Name="ReceiverBeerId" Type="Int32" Nullable="false" />
+          <Property Name="IsApproved" Type="Boolean" />
+          <Property Name="SendingComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivingComments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cellar" Relationship="Self.FK__Trade__Receiving__6477ECF3" FromRole="Trade" ToRole="Cellar" />
+          <NavigationProperty Name="Cellar1" Relationship="Self.FK__Trade__SendingMe__6383C8BA" FromRole="Trade" ToRole="Cellar" />
+          <NavigationProperty Name="Beer" Relationship="CapStoneProjectModel.FK__Trade__ReceiverB__7D439ABD" FromRole="Trade" ToRole="Beer" />
+          <NavigationProperty Name="Beer1" Relationship="CapStoneProjectModel.FK__Trade__SendingBe__7C4F7684" FromRole="Trade" ToRole="Beer" />
+        </EntityType>
+        <Association Name="FK__Trade__Receiving__6477ECF3">
+          <End Role="Cellar" Type="Self.Cellar" Multiplicity="1" />
+          <End Role="Trade" Type="Self.Trade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cellar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trade">
+              <PropertyRef Name="ReceivingMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trade__SendingMe__6383C8BA">
+          <End Role="Cellar" Type="Self.Cellar" Multiplicity="1" />
+          <End Role="Trade" Type="Self.Trade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cellar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trade">
+              <PropertyRef Name="SendingMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CapStoneProjectEntities5" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cellars" EntityType="Self.Cellar" />
+          <EntitySet Name="Trades" EntityType="Self.Trade" />
+          <AssociationSet Name="FK__Trade__Receiving__6477ECF3" Association="Self.FK__Trade__Receiving__6477ECF3">
+            <End Role="Cellar" EntitySet="Cellars" />
+            <End Role="Trade" EntitySet="Trades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trade__SendingMe__6383C8BA" Association="Self.FK__Trade__SendingMe__6383C8BA">
+            <End Role="Cellar" EntitySet="Cellars" />
+            <End Role="Trade" EntitySet="Trades" />
+          </AssociationSet>
+          <EntitySet Name="Beers" EntityType="CapStoneProjectModel.Beer" />
+          <AssociationSet Name="FK__Trade__ReceiverB__7D439ABD" Association="CapStoneProjectModel.FK__Trade__ReceiverB__7D439ABD">
+            <End Role="Beer" EntitySet="Beers" />
+            <End Role="Trade" EntitySet="Trades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trade__SendingBe__7C4F7684" Association="CapStoneProjectModel.FK__Trade__SendingBe__7C4F7684">
+            <End Role="Beer" EntitySet="Beers" />
+            <End Role="Trade" EntitySet="Trades" />
+          </AssociationSet>
+          <AssociationSet Name="CellarBeer" Association="CapStoneProjectModel.CellarBeer">
+            <End Role="Beer" EntitySet="Beers" />
+            <End Role="Cellar" EntitySet="Cellars" />
+          </AssociationSet>
+          <EntitySet Name="Members" EntityType="CapStoneProjectModel.Member" />
+          <AssociationSet Name="FK__Cellar__MemberId__72C60C4A" Association="CapStoneProjectModel.FK__Cellar__MemberId__72C60C4A">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Cellar" EntitySet="Cellars" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Beer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Style" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Brewer" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="BeerName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ABV" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Trades" Relationship="CapStoneProjectModel.FK__Trade__ReceiverB__7D439ABD" FromRole="Beer" ToRole="Trade" />
+          <NavigationProperty Name="Trades1" Relationship="CapStoneProjectModel.FK__Trade__SendingBe__7C4F7684" FromRole="Beer" ToRole="Trade" />
+          <NavigationProperty Name="Cellars" Relationship="CapStoneProjectModel.CellarBeer" FromRole="Beer" ToRole="Cellar" />
+        </EntityType>
+        <Association Name="FK__Trade__ReceiverB__7D439ABD">
+          <End Type="CapStoneProjectModel.Beer" Role="Beer" Multiplicity="1" />
+          <End Type="CapStoneProjectModel.Trade" Role="Trade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trade">
+              <PropertyRef Name="ReceiverBeerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Trade__SendingBe__7C4F7684">
+          <End Type="CapStoneProjectModel.Beer" Role="Beer" Multiplicity="1" />
+          <End Type="CapStoneProjectModel.Trade" Role="Trade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trade">
+              <PropertyRef Name="SendingBeerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CellarBeer">
+          <End Type="CapStoneProjectModel.Beer" Role="Beer" Multiplicity="*" />
+          <End Type="CapStoneProjectModel.Cellar" Role="Cellar" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cellars" Relationship="CapStoneProjectModel.FK__Cellar__MemberId__72C60C4A" FromRole="Member" ToRole="Cellar" />
+        </EntityType>
+        <Association Name="FK__Cellar__MemberId__72C60C4A">
+          <End Type="CapStoneProjectModel.Member" Role="Member" Multiplicity="1" />
+          <End Type="CapStoneProjectModel.Cellar" Role="Cellar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cellar">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CapStoneProjectModelStoreContainer" CdmEntityContainer="CapStoneProjectEntities5">
+          <EntitySetMapping Name="Cellars">
+            <EntityTypeMapping TypeName="CapStoneProjectModel.Cellar">
+              <MappingFragment StoreEntitySet="Cellar">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="CellarName" ColumnName="CellarName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trades">
+            <EntityTypeMapping TypeName="CapStoneProjectModel.Trade">
+              <MappingFragment StoreEntitySet="Trade">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SendingMemberId" ColumnName="SendingMemberId" />
+                <ScalarProperty Name="ReceivingMemberId" ColumnName="ReceivingMemberId" />
+                <ScalarProperty Name="SendingBeerId" ColumnName="SendingBeerId" />
+                <ScalarProperty Name="ReceiverBeerId" ColumnName="ReceiverBeerId" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="SendingComments" ColumnName="SendingComments" />
+                <ScalarProperty Name="ReceivingComments" ColumnName="ReceivingComments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beers">
+            <EntityTypeMapping TypeName="CapStoneProjectModel.Beer">
+              <MappingFragment StoreEntitySet="Beer">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ABV" ColumnName="ABV" />
+                <ScalarProperty Name="BeerName" ColumnName="BeerName" />
+                <ScalarProperty Name="Brewer" ColumnName="Brewer" />
+                <ScalarProperty Name="Style" ColumnName="Style" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CellarBeer" TypeName="CapStoneProjectModel.CellarBeer" StoreEntitySet="CellarBeer">
+            <EndProperty Name="Cellar">
+              <ScalarProperty Name="Id" ColumnName="Cellarid" />
+            </EndProperty>
+            <EndProperty Name="Beer">
+              <ScalarProperty Name="Id" ColumnName="BeerId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="CapStoneProjectModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

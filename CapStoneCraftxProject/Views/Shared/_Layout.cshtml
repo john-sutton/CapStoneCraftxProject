@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CraftX</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/skel.min.js"></script>
+    <script src="~/Scripts/skel-layers.min.js"></script>
+    <script src="~/Scripts/init.js"></script>
+
+
+
+    <link href="~/Content/skel.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/style-xlarge.css" rel="stylesheet" />
+
+
+
+
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        @{
+            Html.RenderPartial("_Navigation");
+        }
+       
+    </header>
+    <section id="main" class="wrapper">
+        <div class="container">
+
+            @RenderBody()
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <section class="links">
+                <div class="row">
+                    <section class="3u 6u(medium) 12u$(small)">
+                        <h3>Create Your Own Cellar</h3>
+                        <ul class="unstyled">
+                            <li><a href="#">Show case your beers.</a></li>
+
+                        </ul>
+                    </section>
+                    <section class="3u 6u$(medium) 12u$(small)">
+                        <h3>Search Other User Cellars</h3>
+                        <ul class="unstyled">
+                            <li><a href="#">See what other users have to offer.</a></li>
+
+                        </ul>
+
+                    </section>
+                    <section class="3u 6u(medium) 12u$(small)">
+                        <h3>Try New Beers</h3>
+                        <ul class="unstyled">
+                            <li><a href="#">Find Local Brewed Beer that may not be in your area.</a></li>
+
+                        </ul>
+                    </section>
+                    <section class="3u$ 6u$(medium) 12u$(small)">
+                        <h3>Search for an Old Favorite</h3>
+                        <ul class="unstyled">
+                            <li><a href="#">Looking for that Special Brew?</a></li>
+
+                        </ul>
+                    </section>
+                </div>
+            </section>
+            <div class="row">
+                <div class="8u 12u$(medium)">
+                    <ul class="copyright">
+                        <li>&copy; John Sutton. All rights reserved.</li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CapStoneCraftxProject.Models.Beer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>BEERS</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Style)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brewer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ABV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Style)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brewer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ABV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <ul>
+                    <li> @Html.ActionLink("Select", "Index", "Cellars", new { beerId = item.Id }, new { @class = "button small" })</li>
+
+                </ul>
+            </td>
+        </tr>
+
+
+
+    }
+
+</table>
+
+

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CapStoneCraftxProject.Models.Beer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@if (ViewBag.IsCurrentUser)
+{
+    <p>
+        @Html.ActionLink("Create New", "Create", "Beers", new { id = ViewBag.Cellarid }, new { @class = "button small" })
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Style)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brewer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ABV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Style)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brewer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ABV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @if (ViewBag.IsCurrentUser)
+                {
+                    <text>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id, Cellarid = ViewBag.Cellarid }, new { @class = "button small" }) |*@
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id,Cellarid = ViewBag.Cellarid }, new { @class = "button small" })
+                    </text>
+
+
+                }
+                @*else
+                {
+                    @Html.ActionLink("Select","Index","Cellars",new { beerId =item.Id }, new { @class = "button small" })
+                }*@
+            </td>
+        </tr>
+    }
+
+</table>

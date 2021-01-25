@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7eb3101943d74d66ae81560d6a2bd292" Name="Diagram1">
+        <EntityTypeShape EntityType="CapStoneProjectModel.Cellar" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CapStoneProjectModel.Trade" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="CapStoneProjectModel.FK__Trade__Receiving__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="CapStoneProjectModel.FK__Trade__SendingMe__6383C8BA" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CapStoneProjectModel.Beer" Width="1.5" PointX="0.75" PointY="4.625" />
+        <AssociationConnector Association="CapStoneProjectModel.FK__Trade__ReceiverB__7D439ABD" />
+        <AssociationConnector Association="CapStoneProjectModel.FK__Trade__SendingBe__7C4F7684" />
+        <AssociationConnector Association="CapStoneProjectModel.CellarBeer" />
+        <EntityTypeShape EntityType="CapStoneProjectModel.Member" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="CapStoneProjectModel.FK__Cellar__MemberId__72C60C4A" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

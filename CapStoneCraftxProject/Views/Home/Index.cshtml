@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CraftX</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/skel.min.js"></script>
+    <script src="~/Scripts/skel-layers.min.js"></script>
+    <script src="~/Scripts/init.js"></script>
+   
+
+
+    <link href="~/Content/skel.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/style-xlarge.css" rel="stylesheet" />
+
+
+</head>
+<body class="landing">
+
+    <!-- Header -->
+    <header id="header">
+        @{
+            Html.RenderPartial("_Navigation");
+        }
+
+
+    </header>
+        
+    <!-- Banner -->
+    <section id="banner">
+        <h2>CraftX</h2>
+        <p>Craft Beer Exchange</p>
+        <ul class="actions">
+            <li>
+                @Html.ActionLink("Log In", "Login", "Account", null, new { @class = "button big" })
+            </li>
+        </ul>
+    </section>
+
+    <!-- One -->
+    <section id="one" class="wrapper style1 special">
+        <div class="container">
+            <header class="major">
+                <h2>A Home For Craft Beer Lovers!</h2>
+                <p></p>
+            </header>
+            <div class="row 150%">
+                <div class="4u 12u$(medium)">
+                    <section class="box">
+
+                        <h3>Personal Cellar    </h3>
+                        <p>Create you own personal cellar to showcase the beers you have to offer</p>
+                    </section>
+                </div>
+                <div class="4u 12u$(medium)">
+                    <section class="box">
+
+                        <h3>View Other Users Cellars</h3>
+                        <p>Search for beers by Style,Brewer or Name of Beer</p>
+                    </section>
+                </div>
+                <div class="4u$ 12u$(medium)">
+                    <section class="box">
+
+                        <h3>Trade with other beer Enthusiast</h3>
+                        <p>Find something you like ,make an offer and trade for that special beer  </p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Two -->
+    <!-- Three -->
+    <section id="three" class="wrapper style3 special">
+        <div class="container">
+            <header class="major">
+                <h2>Contact Us!</h2>
+                <p>Send us a message and tell us what you think!</p>
+            </header>
+        </div>
+        <div class="container 50%">
+            <form action="#" method="post">
+                <div class="row uniform">
+                    <div class="6u 12u$(small)">
+                        <input name="name" id="name" value="" placeholder="Name" type="text">
+                    </div>
+                    <div class="6u$ 12u$(small)">
+                        <input name="email" id="email" value="" placeholder="Email" type="email">
+                    </div>
+                    <div class="12u$">
+                        <textarea name="message" id="message" placeholder="Message" rows="6"></textarea>
+                    </div>
+                    <div class="12u$">
+                        <ul class="actions">
+                            <li><input value="Send Message" class="special big" type="submit"></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <section class="links">
+                <div class="row">
+
+
+
+
+                </div>
+            </section>
+            <div class="row">
+                <div class="8u 12u$(medium)">
+                    <ul class="copyright">
+                        <li>&copy; John Sutton. All rights reserved.</li>
+
+                    </ul>
+                </div>
+                <div class="4u$ 12u$(medium)">
+                    <ul class="icons">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
