@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@*<h2>Index</h2>*@
 @if (ViewBag.IsCurrentUser)
 {
     <p>
@@ -52,6 +52,7 @@
             <td>
                 @if (ViewBag.IsCurrentUser)
                 {
+
                     <text>
                         @*@Html.ActionLink("Edit", "Edit", new { id = item.Id, Cellarid = ViewBag.Cellarid }, new { @class = "button small" }) |*@
                         @Html.ActionLink("Delete", "Delete", new { id = item.Id,Cellarid = ViewBag.Cellarid }, new { @class = "button small" })
@@ -59,10 +60,10 @@
 
 
                 }
-                @*else
+                else
                 {
-                    @Html.ActionLink("Select","Index","Cellars",new { beerId =item.Id }, new { @class = "button small" })
-                }*@
+                    @Html.ActionLink("Send Trade Offer","Create","Trades",new { beerId =item.Id,id =ViewBag.Cellarid }, new { @class = "button small" })
+                }
             </td>
         </tr>
     }

@@ -30,9 +30,8 @@
 
     <!-- Header -->
     <header id="header">
-        @{
-            Html.RenderPartial("_Navigation");
-        }
+
+          @Html.Action("Navigation","Cellars")
        
     </header>
     <section id="main" class="wrapper">

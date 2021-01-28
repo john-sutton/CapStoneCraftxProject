@@ -7,17 +7,81 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CapStoneCraftxProject.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CapStoneCraftxProject.Controllers
 {
+    [Authorize]
     public class TradesController : Controller
     {
         private CapStoneProjectEntities5 db = new CapStoneProjectEntities5();
 
+        //public ActionResult Index(TradeListTypeViewModel model)
+
+        //{
+        //    TradeListType tradelisttype;
+        //    if (model == null)
+        //    {
+
+        //        tradelisttype = TradeListType.AllOffersRecieved;
+
+        //    }
+        //    else
+        //    {
+        //        tradelisttype = model.TradeListType;
+        //    }
+
+        //    return RedirectToAction("Index", new { id = tradelisttype });
+        //}
+
         // GET: Trades
-        public ActionResult Index()
-        {
-            var trades = db.Trades.Include(t => t.Beer).Include(t => t.Beer1).Include(t => t.Cellar).Include(t => t.Cellar1);
+        public ActionResult Index(TradeListTypeViewModel model)
+          {
+            IEnumerable<Trade> trades;
+            TradeListType tradelisttype;
+            if (model == null)
+            {
+
+                tradelisttype = TradeListType.AllOffersRecieved;
+
+            }
+            else
+            {
+                tradelisttype = model.TradeListType;
+            }
+            var userid = User.Identity.GetUserId();
+            var member = db.Members.Find(userid);
+            var cellar = member.Cellars.First();
+            var senttrades = cellar.Trades1;
+            var recievedtrades = cellar.Trades;
+            var alltrades = senttrades.Union(recievedtrades);
+
+           
+            switch (tradelisttype)
+            {
+                case TradeListType.AcceptedOffers:
+                    trades = alltrades.Where(t => t.IsApproved.HasValue && t.IsApproved.Value);
+                    break;
+                case TradeListType.AllOffersMade:
+                    trades = senttrades;
+                    break;
+                case TradeListType.AllOffersRecieved:
+                    trades = recievedtrades;
+                    break;
+                case TradeListType.DeniedOffers:
+                    trades = alltrades.Where(t => t.IsApproved.HasValue && !t.IsApproved.Value);
+                    break;
+                case TradeListType.PendingOffersMade:
+                    trades = senttrades.Where(t => !t.IsApproved.HasValue);
+                    break;
+                case TradeListType.PendingOffersRecieved:
+                    trades = recievedtrades.Where(t => !t.IsApproved.HasValue);
+                    break;
+                default:trades = null;
+                    break;
+
+            }
+            ViewBag.listtype = new TradeListTypeViewModel { TradeListType = tradelisttype };
             return View(trades.ToList());
         }
 
@@ -37,13 +101,20 @@ namespace CapStoneCraftxProject.Controllers
         }
 
         // GET: Trades/Create
-        public ActionResult Create()
+        public ActionResult Create(int id,int beerid)
         {
-            ViewBag.ReceiverBeerId = new SelectList(db.Beers, "Id", "Style");
-            ViewBag.SendingBeerId = new SelectList(db.Beers, "Id", "Style");
-            ViewBag.ReceivingMemberId = new SelectList(db.Cellars, "Id", "MemberId");
-            ViewBag.SendingMemberId = new SelectList(db.Cellars, "Id", "MemberId");
-            return View();
+            var userid = User.Identity.GetUserId();
+            var sendingmember = db.Members.Find(userid);
+            var sendingcellar = sendingmember.Cellars.First();
+
+            ViewBag.SendingBeerId = new SelectList(sendingcellar.Beers, "Id", "BeerName");
+            var trade = new Trade
+            {
+                SendingMemberId = sendingcellar.Id,
+                ReceivingMemberId = id,
+                ReceiverBeerId =beerid,
+            };
+            return View(trade);
         }
 
         // POST: Trades/Create
@@ -57,7 +128,8 @@ namespace CapStoneCraftxProject.Controllers
             {
                 db.Trades.Add(trade);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                var tradelisttypeviewmodel = new TradeListTypeViewModel { TradeListType = TradeListType.PendingOffersMade };
+                return RedirectToAction("Index",new {model = tradelisttypeviewmodel });
             }
 
             ViewBag.ReceiverBeerId = new SelectList(db.Beers, "Id", "Style", trade.ReceiverBeerId);
@@ -79,10 +151,8 @@ namespace CapStoneCraftxProject.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ReceiverBeerId = new SelectList(db.Beers, "Id", "Style", trade.ReceiverBeerId);
-            ViewBag.SendingBeerId = new SelectList(db.Beers, "Id", "Style", trade.SendingBeerId);
-            ViewBag.ReceivingMemberId = new SelectList(db.Cellars, "Id", "MemberId", trade.ReceivingMemberId);
-            ViewBag.SendingMemberId = new SelectList(db.Cellars, "Id", "MemberId", trade.SendingMemberId);
+            ViewBag.ReceiverBeerId = new SelectList(trade.Cellar.Beers, "Id", "BeerName", trade.ReceiverBeerId);
+            ViewBag.SendingBeerId = new SelectList(trade.Cellar1.Beers, "Id", "BeerName", trade.SendingBeerId);
             return View(trade);
         }
 

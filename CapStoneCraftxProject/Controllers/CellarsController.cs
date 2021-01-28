@@ -157,5 +157,14 @@ namespace CapStoneCraftxProject.Controllers
             }
             base.Dispose(disposing);
         }
+        [AllowAnonymous]
+        public ActionResult Navigation()
+        {
+            var userid = User.Identity.GetUserId();
+            var cellar = db.Cellars.FirstOrDefault(c => c.MemberId == userid);
+            ViewBag.cellarName = cellar?.CellarName;
+            return PartialView();
+        }
+       
     }
 }

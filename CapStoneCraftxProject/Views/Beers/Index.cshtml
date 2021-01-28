@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>BEERS</h2>
+<h2>Available Beers</h2>
 
 <p>
     @*@Html.ActionLink("Create New", "Create")*@
@@ -48,17 +48,17 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                <ul>
-                    <li> @Html.ActionLink("Select", "Index", "Cellars", new { beerId = item.Id }, new { @class = "button small" })</li>
+                 @Html.ActionLink("Select", "Index", "Cellars", new { beerId = item.Id }, new { @class = "button small" })
 
-                </ul>
             </td>
         </tr>
-
-
-
     }
 
 </table>
+
+<p>
+
+    @Html.ActionLink("Back to Cellar List", "Index", "Cellars")
+</p>
 
 

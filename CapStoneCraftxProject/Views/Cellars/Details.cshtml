@@ -17,6 +17,7 @@
         <dd>
             @Html.DisplayFor(model => model.CellarName)
         </dd>
+
         @if (ViewBag.IsCurrentUser == true)
         {
             <dt>
@@ -26,22 +27,20 @@
             <dd>
                 @Html.DisplayFor(model => model.Member.Email)
             </dd>
-
         }
-
-
     </dl>
 </div>
 
 <div class="Cellarbeerlist">
-    @Html.Action("Forcellar", "Beers", new { id = Model.Id})
 
+    @Html.Action("Forcellar", "Beers", new { id = Model.Id })
 </div>
 <p>
-    
+    @Html.ActionLink("Go to trades", "Index", "Trades")   
+</p>
+<p>
     @Html.ActionLink("Back to Beer List", "Index", "Beers")
 </p>
 <p>
-
     @Html.ActionLink("Back to Cellar List", "Index", "Cellars")
 </p>

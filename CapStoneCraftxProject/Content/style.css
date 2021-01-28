@@ -1,6 +1,6 @@
 ﻿@charset "UTF-8";
 @import url(font-awesome.min.css);
-@import url(http://fonts.googleapis.com/css?family=Raleway:700,400);
+@import url(https://fonts.googleapis.com/css?family=Raleway:700,400);
 
 /*
 	Transit by TEMPLATED
@@ -936,8 +936,8 @@ body, input, select, textarea {
 	}
 
 		body.landing #header nav a {
-			color: rgba(255, 255, 255, 0.5);
-	/*		color : rgba:(116,203,243/1);*/
+			color: rgba(74,209,249,0.98);
+		/*	color : rgba:(116,203,243/1);*/
 		}
 
 	#header {
@@ -992,7 +992,7 @@ body, input, select, textarea {
 						-o-transition: color 0.2s ease-in-out;
 						-ms-transition: color 0.2s ease-in-out;
 						transition: color 0.2s ease-in-out;
-						color: #cdced0;
+						color: rgba(74,209,249,0.98);
 						display: inline-block;
 						text-decoration: none;
 					}
@@ -1218,3 +1218,11 @@ body, input, select, textarea {
 		.grid-demo .row.flush > div:last-child span {
 			border-radius: 0 4px 4px 0;
 		}
+		.container {
+			width: 99%;
+			max-width: 1200px;
+		}
+		/*my changes*/
+.RecievedTrade .SenderInfo, .SentTrade .RecieverInfo {
+	font-weight: bold;
+}

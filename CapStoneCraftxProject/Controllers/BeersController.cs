@@ -36,6 +36,7 @@ namespace CapStoneCraftxProject.Controllers
             {
                 ViewBag.IsCurrentUser = false;
             }
+            
             return PartialView(beers.ToList());
 
 

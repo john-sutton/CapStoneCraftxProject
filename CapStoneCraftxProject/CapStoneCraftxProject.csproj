@@ -179,6 +179,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MessagSender.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Beer.cs">
       <DependentUpon>CraftXProjectModel.tt</DependentUpon>
@@ -186,6 +187,7 @@
     <Compile Include="Models\Cellar.cs">
       <DependentUpon>CraftXProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TradeListTypeViewModel.cs" />
     <Compile Include="Models\CraftXProjectModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -209,6 +211,7 @@
     <Compile Include="Models\Trade.cs">
       <DependentUpon>CraftXProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TradeListType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -332,7 +335,9 @@
     <Content Include="Views\Trades\Index.cshtml" />
     <Content Include="Views\Beers\Beers.cshtml" />
     <Content Include="Views\Beers\ForCellar.cshtml" />
-    <Content Include="Views\Shared\_Navigation.cshtml" />
+    <Content Include="Views\Cellars\Navigation.cshtml" />
+    <Content Include="secrets.config" />
+    <Content Include="Views\Trades\_TradeListTypePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
