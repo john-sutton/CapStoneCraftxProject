@@ -69,18 +69,19 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.tradesstatus, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div class="checkbox">
                 @if (Model.Cellar.MemberId == User.Identity.GetUserId())
                 {
-                    @: @Html.EditorFor(model => model.IsApproved)
+                    @*@: @Html.EditorFor(model => model.IsApproved)*@
+                    @: @Html.DropDownListFor(model => model.IsApproved,(SelectList)ViewBag.BoolValues,"Pending",null)
                 }
                 else
                 {
                     <text>
                         @Html.HiddenFor(model => model.IsApproved)
-                        @Html.DisplayFor(model => model.IsApproved)
+                        @Html.DisplayFor(model => model.tradesstatus)
                     </text>
                 }
 
@@ -123,21 +124,24 @@
 
                 @: @Html.TextAreaFor(model => model.ReceivingComments, new { @class = "form-control" } )
             }
-                else
+             else
             {
         <text>
 
-            @Html.HiddenFor(model => model.ReceivingComments)
-            <div class="commentdisplay">
+                @Html.HiddenFor(model => model.ReceivingComments)
 
+        <div class="commentdisplay">
                 @Html.DisplayFor(model => model.ReceivingComments)
-            </div>
+        </div>
 
 
         </text>
+
             }
+
             @Html.ValidationMessageFor(model => model.ReceivingComments, "", new { @class = "text-danger" })
         </div>
+
     </div>
 
     <div class="form-group">

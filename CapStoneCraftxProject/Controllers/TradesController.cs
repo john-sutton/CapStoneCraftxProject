@@ -16,24 +16,7 @@ namespace CapStoneCraftxProject.Controllers
     {
         private CapStoneProjectEntities5 db = new CapStoneProjectEntities5();
 
-        //public ActionResult Index(TradeListTypeViewModel model)
-
-        //{
-        //    TradeListType tradelisttype;
-        //    if (model == null)
-        //    {
-
-        //        tradelisttype = TradeListType.AllOffersRecieved;
-
-        //    }
-        //    else
-        //    {
-        //        tradelisttype = model.TradeListType;
-        //    }
-
-        //    return RedirectToAction("Index", new { id = tradelisttype });
-        //}
-
+       
         // GET: Trades
         public ActionResult Index(TradeListTypeViewModel model)
           {
@@ -132,10 +115,11 @@ namespace CapStoneCraftxProject.Controllers
                 return RedirectToAction("Index",new {model = tradelisttypeviewmodel });
             }
 
-            ViewBag.ReceiverBeerId = new SelectList(db.Beers, "Id", "Style", trade.ReceiverBeerId);
-            ViewBag.SendingBeerId = new SelectList(db.Beers, "Id", "Style", trade.SendingBeerId);
-            ViewBag.ReceivingMemberId = new SelectList(db.Cellars, "Id", "MemberId", trade.ReceivingMemberId);
-            ViewBag.SendingMemberId = new SelectList(db.Cellars, "Id", "MemberId", trade.SendingMemberId);
+            var userid = User.Identity.GetUserId();
+            var sendingmember = db.Members.Find(userid);
+            var sendingcellar = sendingmember.Cellars.First();
+
+            ViewBag.SendingBeerId = new SelectList(sendingcellar.Beers, "Id", "BeerName");
             return View(trade);
         }
 
@@ -151,8 +135,15 @@ namespace CapStoneCraftxProject.Controllers
             {
                 return HttpNotFound();
             }
+
+            var bools = new[]
+            {
+                new{val =true,name="Accept"},
+                new{val= false,name="Denied"}
+            };
             ViewBag.ReceiverBeerId = new SelectList(trade.Cellar.Beers, "Id", "BeerName", trade.ReceiverBeerId);
             ViewBag.SendingBeerId = new SelectList(trade.Cellar1.Beers, "Id", "BeerName", trade.SendingBeerId);
+            ViewBag.BoolValues = new SelectList(bools, "val", "name", trade.IsApproved);
             return View(trade);
         }
 
@@ -164,8 +155,22 @@ namespace CapStoneCraftxProject.Controllers
         public ActionResult Edit([Bind(Include = "Id,SendingMemberId,ReceivingMemberId,SendingBeerId,ReceiverBeerId,IsApproved,SendingComments,ReceivingComments")] Trade trade)
         {
             if (ModelState.IsValid)
-            {
+            {//var trade = new trade
                 db.Entry(trade).State = EntityState.Modified;
+                 if(trade.IsApproved.HasValue && trade.IsApproved.Value )
+                 {
+
+                    Cellar offertradecellar = db.Cellars.Find(trade.SendingMemberId);
+                    Cellar recievingtradecellar = db.Cellars.Find(trade.ReceivingMemberId);
+                    Beer offeretradebeer = db.Beers.Find(trade.SendingBeerId);
+                    Beer recievingtradebeer = db.Beers.Find(trade.ReceiverBeerId);
+
+                    offertradecellar.Beers.Remove(offeretradebeer);
+                    offertradecellar.Beers.Add(recievingtradebeer);
+                    recievingtradecellar.Beers.Add(offeretradebeer);
+                    recievingtradecellar.Beers.Remove(recievingtradebeer);               }
+
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

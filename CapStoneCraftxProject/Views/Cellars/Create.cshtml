@@ -7,10 +7,10 @@
 <h2>Create Your Cellar</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Cellar</h4>
         <hr />
@@ -40,8 +40,8 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

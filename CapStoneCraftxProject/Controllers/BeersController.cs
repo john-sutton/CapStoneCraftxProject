@@ -19,8 +19,8 @@ namespace CapStoneCraftxProject.Controllers
         // GET: Beers
         public ActionResult Index()
         {
-
-            return View(db.Beers.ToList());
+            var beers = db.Beers.OrderBy(b => b.Style).ThenBy(br => br.Brewer).ThenBy(b => b.BeerName);
+            return View(beers.ToList());
 
         }
         public ActionResult Forcellar(int id)

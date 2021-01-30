@@ -35,7 +35,7 @@
             @Html.DisplayNameFor(model => model.ReceivingComments)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsApproved)
+            @Html.DisplayNameFor(model => model.tradesstatus)
         </th>
 
 
@@ -86,7 +86,7 @@
             @Html.DisplayFor(modelItem => item.ReceivingComments)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsApproved)
+            @Html.DisplayFor(modelItem => item.tradesstatus)
         </td>
 
 
@@ -98,7 +98,7 @@
             @if (item.Cellar1.MemberId == User.Identity.GetUserId())
             {
                 <text>
-                    |
+                    @*|*@
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "button small" })
                 </text>
             }

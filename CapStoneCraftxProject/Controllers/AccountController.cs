@@ -177,7 +177,7 @@ namespace CapStoneCraftxProject.Controllers
                             db.SaveChanges();
                         }
 
-                }
+                         }
                     catch (Exception EX)
                     {
                         var x = 1;
