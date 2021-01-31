@@ -37,11 +37,11 @@
     <!-- Header -->
     <header id="header">
 
-           @Html.Action("Navigation", "Cellars")
+        @Html.Action("Navigation", "Cellars")
 
 
     </header>
-        
+
     <!-- Banner -->
     <section id="banner">
         <h2>CraftX</h2>
@@ -64,22 +64,22 @@
                 <div class="4u 12u$(medium)">
                     <section class="box">
 
-                        <h3>Personal Cellar    </h3>
+                        <h3>Create your own personal cellar</h3>
                         <p>Create you own personal cellar to showcase the beers you have to offer</p>
                     </section>
                 </div>
                 <div class="4u 12u$(medium)">
                     <section class="box">
 
-                        <h3>View Other Users Cellars</h3>
+                        <h3>View other users cellars offerings</h3>
                         <p>Search for beers by Style,Brewer or Name of Beer</p>
                     </section>
                 </div>
                 <div class="4u$ 12u$(medium)">
                     <section class="box">
 
-                        <h3>Trade with other beer Enthusiast</h3>
-                        <p>Find something you like ,make an offer and trade for that special beer  </p>
+                        <h3>Trade with other beer enthusiast</h3>
+                        <p>Find something you like,make an offer and trade for that special beer</p>
                     </section>
                 </div>
             </div>
@@ -88,34 +88,7 @@
 
     <!-- Two -->
     <!-- Three -->
-    <section id="three" class="wrapper style3 special">
-        <div class="container">
-            <header class="major">
-                <h2>Contact Us!</h2>
-                <p>Send us a message and tell us what you think!</p>
-            </header>
-        </div>
-        <div class="container 50%">
-            <form action="#" method="post">
-                <div class="row uniform">
-                    <div class="6u 12u$(small)">
-                        <input name="name" id="name" value="" placeholder="Name" type="text">
-                    </div>
-                    <div class="6u$ 12u$(small)">
-                        <input name="email" id="email" value="" placeholder="Email" type="email">
-                    </div>
-                    <div class="12u$">
-                        <textarea name="message" id="message" placeholder="Message" rows="6"></textarea>
-                    </div>
-                    <div class="12u$">
-                        <ul class="actions">
-                            <li><input value="Send Message" class="special big" type="submit"></li>
-                        </ul>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
+    @Html.Action("Contact", "Home")
 
     <!-- Footer -->
     <footer id="footer">

@@ -111,6 +111,12 @@ namespace CapStoneCraftxProject.Controllers
             {
                 db.Trades.Add(trade);
                 db.SaveChanges();
+
+                var recievingmember = db.Cellars.Find(trade.ReceivingMemberId).Member;
+                var bodyTemplate = "<p>Hi {0}</p><p>You have a trade offer made to you,please log into your account to see offer.</p>";
+                var body = string.Format(bodyTemplate,recievingmember.FirstName);
+                MessagSender.SendEmail(recievingmember.Email, "Pending Trade Offer", body);
+
                 var tradelisttypeviewmodel = new TradeListTypeViewModel { TradeListType = TradeListType.PendingOffersMade };
                 return RedirectToAction("Index",new {model = tradelisttypeviewmodel });
             }
@@ -168,11 +174,26 @@ namespace CapStoneCraftxProject.Controllers
                     offertradecellar.Beers.Remove(offeretradebeer);
                     offertradecellar.Beers.Add(recievingtradebeer);
                     recievingtradecellar.Beers.Add(offeretradebeer);
-                    recievingtradecellar.Beers.Remove(recievingtradebeer);               }
+                    recievingtradecellar.Beers.Remove(recievingtradebeer);
+
+                    var recievingmember = recievingtradecellar.Member;
+                    var sendingMember = offertradecellar.Member;
+                    var bodyTemplate = "<p>Hi {0}</p><p>Your trade has been accepted,Enjoy!</p>";
+                    var recievingbody = string.Format(bodyTemplate, recievingmember.FirstName);
+                    var sendingbody = string.Format(bodyTemplate, sendingMember.FirstName);
+                    MessagSender.SendEmail(recievingmember.Email, "Acepted Trade Offer",recievingbody);
+                    MessagSender.SendEmail(sendingMember.Email, "Acepted Trade Offer",sendingbody);
+                }
 
 
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                var error = string.Join("\n", allErrors.Select(e => e.ErrorMessage));
             }
             ViewBag.ReceiverBeerId = new SelectList(db.Beers, "Id", "Style", trade.ReceiverBeerId);
             ViewBag.SendingBeerId = new SelectList(db.Beers, "Id", "Style", trade.SendingBeerId);

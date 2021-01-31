@@ -1,17 +1,62 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@model CapStoneCraftxProject.Models.EmailViewModel
+
+<section id="three" class="wrapper style3 special">
+    <div class="container">
+        <header class="major">
+            <h2>Contact Us!</h2>
+            <p>Send us a message and tell us what you think!</p>
+        </header>
+    </div>
+    <div class="container 50%">
+        @using (Html.BeginForm("Contact", "Home"))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row uniform">
+                <div class="6u 12u$(small)">
+                    @Html.EditorFor(model => model.FromName,
+                        new
+                             {
+                                 htmlAttributes =
+                            new
+                                 {
+                                placeholder = @Html.DisplayNameFor(m => m.FromName)
+                            }
+                        }
+                    )
+                </div>
+                <div class="6u$ 12u$(small)">
+                    @Html.EditorFor(model => model.FromEmail,
+                        new
+                             {
+                                 htmlAttributes =
+                            new
+                                 {
+                                placeholder = @Html.DisplayNameFor(m => m.FromEmail)
+                            }
+                        }
+                    )
+                </div>
+                <div class="12u$">
+                    @Html.TextAreaFor(model => model.Message,
+                        new
+                             {
+                            rows = 6,
+                            placeholder = @Html.DisplayNameFor(m => m.Message)
+                        }
+                    )
+                </div>
+                <div class="12u$">
+                    <ul class="actions">
+                        <li><input value="Send Message" class="special big" type="submit"></li>
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>

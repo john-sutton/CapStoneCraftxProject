@@ -188,6 +188,7 @@
     <Compile Include="Models\Cellar.cs">
       <DependentUpon>CraftXProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmailViewModel.cs" />
     <Compile Include="Models\TradeListTypeViewModel.cs" />
     <Compile Include="Models\CraftXProjectModel.Context.cs">
       <AutoGen>True</AutoGen>

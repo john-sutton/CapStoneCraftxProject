@@ -17,17 +17,20 @@ namespace CapStoneCraftxProject.Models
             var sendingresult = db.Trades
                 .Where(t => t.SendingBeerId == trade.SendingBeerId)
                 .Where(t => t.SendingMemberId == trade.SendingMemberId)
-                .Where(t => t.IsApproved == null);
+                .Where(t => t.IsApproved == null)
+                .Where(t => t.Id != trade.Id);
+
             var receivingresult = db.Trades
                 .Where(t => t.ReceivingMemberId == trade.ReceivingMemberId)
                 .Where(t => t.ReceiverBeerId == trade.ReceiverBeerId)
-                .Where(t => t.IsApproved == null);
-            if(sendingresult.Any())
+                .Where(t => t.IsApproved == null)
+                .Where(t => t.Id != trade.Id);
+            if (sendingresult.Any())
             {
                 return new ValidationResult
                     ("This beer is in your pending trades,please chooose another.");
             }
-            if(receivingresult.Any())
+            if (receivingresult.Any())
             {
                 return new ValidationResult
                     ("This beer is already in a pending trade,please choose another.");

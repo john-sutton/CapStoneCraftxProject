@@ -36,6 +36,7 @@ namespace CapStoneCraftxProject
                     msg.To.Add(to);
                     msg.Subject = subject;
                     msg.Body = body;
+                    msg.IsBodyHtml = true;
 
                     client.Send(msg);
 
