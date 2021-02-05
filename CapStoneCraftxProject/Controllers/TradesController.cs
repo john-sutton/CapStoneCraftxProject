@@ -115,7 +115,7 @@ namespace CapStoneCraftxProject.Controllers
                 var recievingmember = db.Cellars.Find(trade.ReceivingMemberId).Member;
                 var bodyTemplate = "<p>Hi {0}</p><p>You have a trade offer made to you,please log into your account to see offer.</p>";
                 var body = string.Format(bodyTemplate,recievingmember.FirstName);
-                MessagSender.SendEmail(recievingmember.Email, "Pending Trade Offer", body);
+                MessagSender.SendEmail(recievingmember.Email, "CraftX Pending Trade Offer", body);
 
                 var tradelisttypeviewmodel = new TradeListTypeViewModel { TradeListType = TradeListType.PendingOffersMade };
                 return RedirectToAction("Index",new {model = tradelisttypeviewmodel });
@@ -177,12 +177,14 @@ namespace CapStoneCraftxProject.Controllers
                     recievingtradecellar.Beers.Remove(recievingtradebeer);
 
                     var recievingmember = recievingtradecellar.Member;
-                    var sendingMember = offertradecellar.Member;
-                    var bodyTemplate = "<p>Hi {0}</p><p>Your trade has been accepted,Enjoy!</p>";
+                  //  var recievingembername = recievingtradecellar.CellarName;
+                    var sendingmember = offertradecellar.Member;
+                  //  var sendingmembername = recievingtradecellar.CellarName,
+                    var bodyTemplate = "<p>Hi {0}</p><p>Your CraftX trade has been accepted,Enjoy!</p>";
                     var recievingbody = string.Format(bodyTemplate, recievingmember.FirstName);
-                    var sendingbody = string.Format(bodyTemplate, sendingMember.FirstName);
-                    MessagSender.SendEmail(recievingmember.Email, "Acepted Trade Offer",recievingbody);
-                    MessagSender.SendEmail(sendingMember.Email, "Acepted Trade Offer",sendingbody);
+                    var sendingbody = string.Format(bodyTemplate, sendingmember.FirstName);
+                    MessagSender.SendEmail(recievingmember.Email, "CraftX Acepted Trade Offer",recievingbody);
+                    MessagSender.SendEmail(sendingmember.Email, "Acepted Trade Offer",sendingbody);
                 }
 
 
